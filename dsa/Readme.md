@@ -1,14 +1,13 @@
-# Datastructures and algorithms in go #
+# Datastructures and Algorithms
 
 ## Goal ##
-    I would like to learn and implement important data structures and algorithms as explained in CLRA book.  This project is placeholder for such work.
+I would like to implement different types of  data structures and algorithms studied.  This project is placeholder for such work.
 
 
-
-## Algorithms ##
+## Algorithms
 - Merge Sort
 
 
-## Data Structures ##
+## Data Structures
 
     
