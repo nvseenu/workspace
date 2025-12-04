@@ -9,8 +9,8 @@ type DoublyLinkedListNode[T any] struct {
 }
 
 type DoublyLinkedList[T any] struct {
-	Head          *DoublyLinkedListNode[T]
-	TotalElements int
+	Head       *DoublyLinkedListNode[T]
+	TotalItems int
 }
 
 func NewDoublyLinkedList[T any]() *DoublyLinkedList[T] {
@@ -19,45 +19,45 @@ func NewDoublyLinkedList[T any]() *DoublyLinkedList[T] {
 }
 
 func (l *DoublyLinkedList[T]) Add(pos int, value T) error {
-	if pos > l.TotalElements {
+	if pos > l.TotalItems {
 		return ErrInvalidPosition
 	}
 
-	n := &DoublyLinkedListNode[T]{
+	newNode := &DoublyLinkedListNode[T]{
 		Value: value,
 		Next:  nil,
 		Prev:  nil,
 	}
 	if pos == 0 {
-		n.Next = l.Head
-		l.Head = n
-	} else if l.TotalElements == pos {
+		newNode.Next = l.Head
+		l.Head = newNode
+	} else if l.TotalItems == pos {
 		previousNode := l.nodeAt(pos - 1)
 		nextNode := previousNode.Next
-		previousNode.Next = n
-		n.Prev = previousNode
-		n.Next = nextNode
+		previousNode.Next = newNode
+		newNode.Prev = previousNode
+		newNode.Next = nextNode
 	} else {
 		currentNode := l.nodeAt(pos)
 		previousNode := currentNode.Prev
-		previousNode.Next = n
-		n.Prev = previousNode
-		n.Next = currentNode
-		currentNode.Prev = n
+		previousNode.Next = newNode
+		newNode.Prev = previousNode
+		newNode.Next = currentNode
+		currentNode.Prev = newNode
 	}
 
-	l.TotalElements++
+	l.TotalItems++
 	return nil
 }
 
 func (l *DoublyLinkedList[T]) Delete(pos int) (T, error) {
-	var elm T
-	if pos >= l.TotalElements {
-		return elm, ErrInvalidPosition
+	var item T
+	if pos >= l.TotalItems {
+		return item, ErrInvalidPosition
 	}
 
-	if l.TotalElements == 0 {
-		return elm, ErrInvalidPosition
+	if l.TotalItems == 0 {
+		return item, ErrInvalidPosition
 	}
 
 	if pos == 0 {
@@ -67,7 +67,7 @@ func (l *DoublyLinkedList[T]) Delete(pos int) (T, error) {
 		nextNode.Prev = l.Head
 		head.Next = nil
 		head.Prev = nil
-		elm = head.Value
+		item = head.Value
 	} else {
 		currentNode := l.nodeAt(pos)
 		previousNode := currentNode.Prev
@@ -76,21 +76,21 @@ func (l *DoublyLinkedList[T]) Delete(pos int) (T, error) {
 		previousNode.Next = nextNode
 
 		// Last node will have nil next node. but middle nodes will have.
-		if pos < l.TotalElements-1 {
+		if pos < l.TotalItems-1 {
 			nextNode.Prev = currentNode
 		}
 
 		currentNode.Next = nil
 		currentNode.Prev = nil
-		elm = currentNode.Value
+		item = currentNode.Value
 	}
-	l.TotalElements--
-	return elm, nil
+	l.TotalItems--
+	return item, nil
 }
 
 func (l *DoublyLinkedList[T]) Value(pos int) (T, error) {
 	var t T
-	if pos >= l.TotalElements {
+	if pos >= l.TotalItems {
 		return t, ErrInvalidPosition
 	}
 	n := l.nodeAt(pos)
@@ -113,7 +113,7 @@ func (l *DoublyLinkedList[T]) nodeAt(pos int) *DoublyLinkedListNode[T] {
 }
 
 func (l *DoublyLinkedList[T]) Len() int {
-	return l.TotalElements
+	return l.TotalItems
 }
 
 func (l *DoublyLinkedList[T]) String() string {

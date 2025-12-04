@@ -33,7 +33,7 @@ var listAddTestData = []struct {
 	expected    []int
 }{
 	{
-		desc:        "Adding at empty list",
+		desc:        "Add an item to an empty list",
 		initialElms: []int{},
 		pos:         0,
 		value:       1,
@@ -41,7 +41,7 @@ var listAddTestData = []struct {
 	},
 
 	{
-		desc:        "Adding at end of the list",
+		desc:        "Add an item at end of the list",
 		initialElms: []int{1, 2, 3, 4},
 		pos:         4,
 		value:       5,
@@ -49,7 +49,7 @@ var listAddTestData = []struct {
 	},
 
 	{
-		desc:        "Adding at middle of the list",
+		desc:        "Add an item at middle of the list",
 		initialElms: []int{1, 2, 3, 4},
 		pos:         2,
 		value:       5,
@@ -57,14 +57,14 @@ var listAddTestData = []struct {
 	},
 
 	{
-		desc:        "Adding at next to the head",
+		desc:        "Add an item next to head",
 		initialElms: []int{1, 2, 3, 4},
 		pos:         1,
 		value:       5,
 		expected:    []int{1, 5, 2, 3, 4},
 	},
 	{
-		desc:        "Adding at previous to the last element",
+		desc:        "Add an item previous to the last one",
 		initialElms: []int{1, 2, 3, 4},
 		pos:         3,
 		value:       5,
@@ -97,7 +97,7 @@ var listDeleteTestData = []struct {
 	error        error
 }{
 	{
-		desc:         "Delete at empty list",
+		desc:         "Delete the item from an empty list",
 		initialElms:  []int{},
 		pos:          0,
 		deletedValue: 0,
@@ -105,7 +105,7 @@ var listDeleteTestData = []struct {
 		error:        ErrInvalidPosition,
 	},
 	{
-		desc:         "Delete at head",
+		desc:         "Delete the item at head",
 		initialElms:  []int{1, 2, 3, 4, 5},
 		pos:          0,
 		deletedValue: 1,
@@ -113,7 +113,7 @@ var listDeleteTestData = []struct {
 	},
 
 	{
-		desc:         "Delete at end",
+		desc:         "Delete the item at end",
 		initialElms:  []int{1, 2, 3, 4, 5},
 		pos:          4,
 		deletedValue: 5,
@@ -121,7 +121,7 @@ var listDeleteTestData = []struct {
 	},
 
 	{
-		desc:         "Delete at middle",
+		desc:         "Delete the item at middle",
 		initialElms:  []int{1, 2, 3, 4, 5},
 		pos:          2,
 		deletedValue: 3,
@@ -129,7 +129,7 @@ var listDeleteTestData = []struct {
 	},
 
 	{
-		desc:         "Delete 2nd element",
+		desc:         "Delete the item next to head",
 		initialElms:  []int{1, 2, 3, 4, 5},
 		pos:          1,
 		deletedValue: 2,
@@ -137,7 +137,7 @@ var listDeleteTestData = []struct {
 	},
 
 	{
-		desc:         "Delete previous to last element",
+		desc:         "Delete the item previous to last one",
 		initialElms:  []int{1, 2, 3, 4, 5},
 		pos:          3,
 		deletedValue: 4,

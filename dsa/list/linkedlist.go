@@ -10,8 +10,8 @@ type LinkedListNode[T any] struct {
 }
 
 type LinkedList[T any] struct {
-	Head          *LinkedListNode[T]
-	TotalElements int
+	Head       *LinkedListNode[T]
+	TotalItems int
 }
 
 func NewLinkedList[T any]() *LinkedList[T] {
@@ -20,57 +20,57 @@ func NewLinkedList[T any]() *LinkedList[T] {
 }
 
 func (l *LinkedList[T]) Add(pos int, value T) error {
-	if pos > l.TotalElements {
+	if pos > l.TotalItems {
 		return ErrInvalidPosition
 	}
 
-	n := &LinkedListNode[T]{
+	newNode := &LinkedListNode[T]{
 		Value: value,
 		Next:  nil,
 	}
 	if pos == 0 {
-		n.Next = l.Head
-		l.Head = n
+		newNode.Next = l.Head
+		l.Head = newNode
 	} else {
 		previousNode := l.nodeAt(pos - 1)
 		nextNode := previousNode.Next
-		previousNode.Next = n
-		n.Next = nextNode
+		previousNode.Next = newNode
+		newNode.Next = nextNode
 	}
-	l.TotalElements++
+	l.TotalItems++
 	return nil
 }
 
 func (l *LinkedList[T]) Delete(pos int) (T, error) {
-	var elm T
-	if pos > l.TotalElements {
-		return elm, ErrInvalidPosition
+	var item T
+	if pos > l.TotalItems {
+		return item, ErrInvalidPosition
 	}
 
-	if l.TotalElements == 0 {
-		return elm, ErrInvalidPosition
+	if l.TotalItems == 0 {
+		return item, ErrInvalidPosition
 	}
 
 	if pos == 0 {
 		head := l.Head
 		nextNode := l.Head.Next
 		l.Head = nextNode
-		elm = head.Value
+		item = head.Value
 	} else {
 		previousNode := l.nodeAt(pos - 1)
 		currentNode := previousNode.Next
 		nextNode := currentNode.Next
 		previousNode.Next = nextNode
 		currentNode.Next = nil
-		elm = currentNode.Value
+		item = currentNode.Value
 	}
-	l.TotalElements--
-	return elm, nil
+	l.TotalItems--
+	return item, nil
 }
 
 func (l *LinkedList[T]) Value(pos int) (T, error) {
 	var t T
-	if pos >= l.TotalElements {
+	if pos >= l.TotalItems {
 		return t, ErrInvalidPosition
 	}
 	n := l.nodeAt(pos)
@@ -93,7 +93,7 @@ func (l *LinkedList[T]) nodeAt(pos int) *LinkedListNode[T] {
 }
 
 func (l *LinkedList[T]) Len() int {
-	return l.TotalElements
+	return l.TotalItems
 }
 
 func (l *LinkedList[T]) String() string {
